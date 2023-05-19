@@ -1,2 +1,2 @@
 # CodeWar
-Katas
+Katas: https://www.codewars.com/dashboard
