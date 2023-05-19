@@ -1,0 +1,93 @@
+public class Main {
+    public static void main(String[] args) {
+
+        // Array of mostly even numbers with one odd
+        int[] evens = {2, 4, 0, 100, 4, 11, 2602, 36}; //11
+        // Array of mostly odd numbers with one even
+        int[] odds = {160, 3, 1719, 19, 11, 13, -21}; //160
+
+        // Using the original function to find the outlier
+        int my_even = findVersionOfHuman(evens);
+        // Using the refactored function to find the outlier
+        int my_odd = findVersionOfChatGPT(odds);
+
+        System.out.println("The outlier in the first array is: " + my_even);
+        System.out.println("The outlier in the second array is: " + my_odd);
+    }
+
+    /**
+     * Original function that finds the number with different parity.
+     *
+     * It works by first finding if the outlier is even or odd by counting
+     * the first two occurrences of either, then performs another pass
+     * to find the outlier.
+     *
+     * @param integers an array of integers with one outlier in terms of parity
+     * @return the outlier integer
+     */
+    public static int findVersionOfHuman(int[] integers) {
+        int oddCount = 0;
+        int evenCount = 0;
+        boolean isLookingForAnEvenNumber = true;
+
+        for (int i = 0; i < integers.length; i++) {
+            if (integers[i] % 2 != 0) {
+                oddCount++;
+            } else {
+                evenCount++;
+            }
+
+            if (oddCount == 2) {
+                break;
+            }
+            if (evenCount == 2) {
+                isLookingForAnEvenNumber = false;
+                break;
+            }
+        }
+
+        if (isLookingForAnEvenNumber) {
+            for (int i = 0; i < integers.length; i++) {
+                if (integers[i] % 2 == 0)
+                    return integers[i];
+            }
+        } else {
+            for (int i = 0; i < integers.length; i++) {
+                if (integers[i] % 2 != 0)
+                    return integers[i];
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Refactored function that finds the number with different parity.
+     *
+     * This function optimizes the original by determining if the outlier is even or odd
+     * from the first three elements, then continues the loop to find the outlier.
+     *
+     * @param integers an array of integers with one outlier in terms of parity
+     * @return the outlier integer
+     */
+    public static int findVersionOfChatGPT(int[] integers) {
+        int oddCount = 0, evenCount = 0, odd = 0, even = 0;
+
+        for (int i = 0; i < integers.length; i++) {
+            if (integers[i] % 2 == 0) {
+                evenCount++;
+                even = integers[i];
+            } else {
+                oddCount++;
+                odd = integers[i];
+            }
+            if (i == 2) {
+                if (evenCount > oddCount)
+                    return odd;
+                else
+                    return even;
+            }
+        }
+        return 0;
+    }
+}
