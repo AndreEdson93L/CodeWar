@@ -1,0 +1,61 @@
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "Hello Mom! <3.";
+
+        int count_vowels = getCount(str);
+        int count_vowels_gpt_method = getCountGPT(str);
+
+        if(count_vowels_gpt_method == count_vowels)
+            System.out.println("Kata is K.O.!");
+    }
+    
+    /**
+     * This function counts the number of lowercase vowels (a, e, i, o, u) in a given string.
+     *
+     * @param str the string to be evaluated
+     * @return the count of lowercase vowels in the string
+     */
+    public static int getCount(String str){
+        int count_vowels = 0; // Initialize the count of vowels to 0
+
+        // Traverse through each character in the string
+        for(int i = 0; i < str.length(); i++){
+            // Check if the current character is a vowel
+            if(str.charAt(i) == 'a' || str.charAt(i) == 'e' || str.charAt(i) == 'i' || str.charAt(i) == 'o' || str.charAt(i) == 'u')
+                count_vowels++; // If so, increment the count of vowels
+        }
+        return count_vowels; // Return the total count of vowels
+    }
+
+    /**
+     * This function counts the number of lowercase vowels (a, e, i, o, u) in a given string using a HashSet.
+     * Using a HashSet provides constant time complexity for checking the membership which might be more
+     * efficient for large strings.
+     *
+     * @param str the string to be evaluated
+     * @return the count of lowercase vowels in the string
+     */
+    public static int getCountGPT(String str) {
+        int count_vowels = 0; // Initialize the count of vowels to 0
+
+        // Define a set of characters representing the vowels
+        Set<Character> vowels = new HashSet<>();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
+
+        // Traverse through each character in the string
+        for (char c : str.toCharArray()) {
+            // Check if the current character is a vowel
+            if(vowels.contains(c))
+                count_vowels++; // If so, increment the count of vowels
+        }
+
+        return count_vowels; // Return the total count of vowels
+    }
+}
