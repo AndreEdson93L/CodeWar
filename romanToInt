@@ -1,0 +1,66 @@
+/**
+ * Main class for converting Roman numerals to integer.
+ */
+public class Main {
+
+    public static void main(String[] args) {
+        String input = "MCMXCIV";
+        System.out.println(romanToInt(input));
+    }
+
+    /**
+     * Method to get the integer value of a Roman numeral character.
+     * @param value Roman numeral character
+     * @return Corresponding integer value
+     */
+    private static int getValue(char value){
+        switch (value){
+            case 'M': return 1000;
+            case 'D': return 500;
+            case 'C': return 100;
+            case 'L': return 50;
+            case 'X': return 10;
+            case 'V': return 5;
+            case 'I': return 1;
+            default: return 0;
+        }
+    }
+
+    /**
+     * Method to convert Roman numerals to integer.
+     * @param s String of Roman numerals
+     * @return Converted integer value
+     */
+    public static int romanToInt(String s) {
+        // Initialize values
+        int value = 0;
+        int nextValue = 0;
+        int sum = 0;
+
+        // Traverse through each character in the string
+        for (int i = 0; i < s.length(); i++) {
+            // Get value of current character
+            value = getValue(s.charAt(i));
+
+            // If there is a next character
+            if(i + 1 < s.length()){
+                // Get value of next character
+                nextValue = getValue(s.charAt(i + 1));
+
+                // If value of current character is less than value of next character
+                if(value < nextValue){
+                    // Add the difference to the sum (as per Roman numeral rule)
+                    sum += (nextValue - value);
+                    // Skip the next character as it has been considered in this iteration
+                    i++;
+                }
+            }
+
+            // Add the value of current character to sum
+            sum += value;
+        }
+
+        // Return the final sum
+        return sum;
+    }
+}
