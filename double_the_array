@@ -1,0 +1,4 @@
+#Double the numbers of an array in Python
+
+def maps(a):
+    return [i * 2 for i in a]
